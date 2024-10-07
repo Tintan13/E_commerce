@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Home - E-Commerce</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart/view">Cart</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/logout" onclick="return confirmLogout();">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>HARMONY HUB <i class="fas fa-music"></i></h1>
+        <h4>"Where every note finds its perfect voice, and every instrument tells a story."</h4>
+        <p>Check out our featured products!</p>
+
+        <div class="products">
+            <div class="product">
+                <img src="Guitar.webp" alt="Guitar" style="width: 100%; border-radius: 5px;">
+                <h3>Mini Mahogany Acoustic Guitar</h3>
+            </div>
+            <div class="product">
+                <img src="ElectricDrum.webp" alt="Electric Drum" style="width: 100%; border-radius: 5px;">
+                <h3>Fesley FED1000 Electric Drum</h3>
+            </div>
+            <div class="product">
+                <img src="Piano.jpg" alt="Piano" style="width: 100%; border-radius: 5px;">
+                <h3>Yamaha M-304T</h3>
+            </div>
+            <div class="product">
+                <img src="EGuitar.jpg" alt="EGuitar" style="width: 100%; border-radius: 5px;">
+                <h3>SX SST57 Strat VTG Series Electric Guitar</h3>
+            </div>
+            <div class="product">
+                <img src="harmonica.jpg" alt="Harmonica" style="width: 100%; border-radius: 5px;">
+                <h3>Hohner M533056 Blues Harp Harmonica Diatonic Key</h3>
+            </div>
+            <div class="product">
+                <img src="Speaker.jpg" alt="Speaker" style="width: 100%; border-radius: 5px;">
+                <h3>Proel V15PLUS 15" 600W Powered Active Speaker</h3>
+            </div>
+        </div>
+
+        <h2>Available Products</h2>
+        <table class="centered-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><img src="<%= product.image %>" alt="<%= product.name %>" style="width: 50px;"></td>
+                        <td><%= product.name %></td>
+                        <td>$<%= product.price.toFixed(2) %></td>
+                        <td>
+                            <form action="/cart/add" method="POST">
+                                <input type="hidden" name="productId" value="<%= product.id %>">
+                                <input type="number" name="quantity" min="1" value="1" required>
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
+    </script>
+</body>
+</html>

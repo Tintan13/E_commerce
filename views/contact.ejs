@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Contact Us - E-Commerce</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart/view">Cart</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/logout" onclick="return confirmLogout();">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form action="/contact" method="POST" class="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                <p style="text-align: center;"><strong><i class="fas fa-envelope"></i> Email:</strong> <a href="mailto:harmonyhub.com">harmonyhub.com</a></p>
+                <p style="text-align: center;"><strong><i class="fas fa-phone"></i> Phone:</strong> 09123456789</p>
+                <p style="text-align: center;"><strong><i class="fas fa-map-marker-alt"></i> Address:</strong> ABC Street 1024</p>
+
+            <h3>Follow Us</h3>
+            <p  style="text-align: center;">
+                <a href="#"><i class="fab fa-facebook"></i> Facebook</a> | 
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a> | 
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            </p>
+            <h3>Business Hours</h3>
+            <p style="text-align: center; font-size: 16px; color: #333; margin: 10px 0;">Monday - Friday: 9 AM - 5 PM</p>
+        </div>
+    </div>
+    <script>
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
+    </script>
+</body>
+</html>

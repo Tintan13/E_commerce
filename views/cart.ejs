@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Cart - E-Commerce</title>
+    <style>
+        body {
+            background-color: #f5f5f5; /* Optional: Light background for the whole page */
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 100px;
+        }
+
+        .modal-content {
+            background-color: #d2b48c; /* Light brown background */
+            margin: 5% auto;
+            padding: 20px;
+            border: 2px solid black; /* Black border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart/view">Cart</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/logout" onclick="return confirmLogout();">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Your Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cartItems.forEach(item => { %>
+                    <tr>
+                        <td><img src="<%= item.image %>" alt="<%= item.name %>" style="width: 50px;"></td>
+                        <td><%= item.name %></td>
+                        <td>$<%= item.price.toFixed(2) %></td>
+                        <td><%= item.quantity %></td>
+                        <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                        <td>
+                            <form action="/cart/remove" method="POST" style="display:inline;">
+                                <input type="hidden" name="productId" value="<%= item.id %>">
+                                <button type="submit">Remove</button>
+                            </form>
+                            <button onclick="buyItem('<%= item.name %>')">Buy</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="purchaseMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
+
+        function buyItem(itemName) {
+            document.getElementById('purchaseMessage').innerText = "You have successfully bought the item: " + itemName;
+            document.getElementById('purchaseModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('purchaseModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('purchaseModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

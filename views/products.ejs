@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Products - E-Commerce</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart/view">Cart</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/logout" onclick="return confirmLogout();">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Products</h1>
+
+        <h2>Add New Product</h2>
+        <form action="/products/add" method="POST" class="product-form">
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+
+            <label for="image">Image URL:</label>
+            <input type="text" id="image" name="image" required>
+
+            <button type="submit">Add Product</button>
+        </form>
+
+        <h2>Available Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><img src="<%= product.image %>" alt="<%= product.name %>" style="width: 100px; height: auto;" /></td>
+                        <td><%= product.name %></td>
+                        <td>$<%= product.price.toFixed(2) %></td>
+                        <td>
+                            <form action="/products/update" method="POST" class="update-form">
+                                <input type="hidden" name="id" value="<%= product.id %>">
+                                <input type="text" name="name" value="<%= product.name %>" required>
+                                <input type="number" name="price" value="<%= product.price %>" step="0.01" required>
+                                <input type="text" name="image" value="<%= product.image %>" required>
+                                <button type="submit">Update</button>
+                            </form>
+                            <form action="/products/delete" method="POST" class="delete-form">
+                                <input type="hidden" name="id" value="<%= product.id %>">
+                                <button type="submit" onclick="return confirmDelete();">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            return confirm("Are you sure you want to log out?");
+        }
+
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this product?");
+        }
+    </script>
+</body>
+</html>
